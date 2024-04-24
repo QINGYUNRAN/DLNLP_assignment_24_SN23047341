@@ -8,6 +8,8 @@ The project is structured to be modular and extensible, with a collection of Pyt
 
 Our approach focuses on achieving high precision and recall in identifying sensitive information, ensuring that the resulting model can be reliably used to protect privacy in a variety of applications.
 
+## Instructions
+To get the train data set, you need to unzip the `train.zip` in Dataset directory.
 
 ## Project Structure
 
