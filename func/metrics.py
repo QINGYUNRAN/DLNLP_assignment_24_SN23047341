@@ -4,6 +4,8 @@ import re
 from func.find_spans import find_span
 from collections import defaultdict
 from spacy.lang.en import English
+from transformers import TrainerCallback
+
 
 class PRFScore:
     """A precision / recall / F score."""
@@ -229,3 +231,27 @@ class MetricsComputer:
                 for v_k, v_v in score_per_type[k].to_dict().items()
             },
         }
+
+
+class MetricsCallback(TrainerCallback):
+    def __init__(self):
+        self.reset()
+
+    def reset(self):
+        self.train_losses = []
+        self.eval_metrics = []
+
+    def on_log(self, args, state, control, logs=None, **kwargs):
+        if logs is not None:
+            if "loss" in logs:
+                self.train_losses.append(logs['loss'])
+            if "eval_loss" in logs and "eval_precision" in logs:
+                self.eval_metrics.append({
+                    "precision": logs.get("eval_precision"),
+                    "recall": logs.get("eval_recall"),
+                    "f1": logs.get("eval_f1"),
+                    "loss": logs.get("eval_loss")
+                })
+
+    def on_train_begin(self, args, state, control, **kwargs):
+        self.reset()
