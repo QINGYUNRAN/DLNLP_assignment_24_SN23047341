@@ -7,7 +7,7 @@ from transformers import TrainingArguments, AutoTokenizer, AutoModelForTokenClas
 from sklearn.model_selection import train_test_split
 
 dir_path = os.path.dirname(os.path.abspath(__file__))
-data_path = os.path.join(dir_path, "Dataset")
+data_path = os.path.join(dir_path, '..', "Dataset")
 train_data_path = os.path.join(data_path, 'train.json')
 test_data_path = os.path.join(data_path, "test.json")
 
