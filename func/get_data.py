@@ -35,6 +35,7 @@ def get_data(train_data_path, test_data_path):
         "document": [str(x["document"]) for x in test_data],
         "tokens": [x["tokens"] for x in test_data],
         "trailing_whitespace": [x["trailing_whitespace"] for x in test_data],
+        "provided_labels": [x["labels"] for x in test_data],
     })
 
     return train_ds, test_ds, label2id, id2label, target
